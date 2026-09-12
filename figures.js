@@ -7,25 +7,25 @@ const figureNotes = {
 };
 const selfSimilarityLevels = [
   {
-    "title": "ソフトウェア",
-    "generated": "要求に沿う小さなコード変更",
-    "evaluated": "要求への適合と、既存機能への影響",
-    "observed": "変更した版をテストし、統合後の結果を追う。",
-    "contract": "成果物と評価条件を、変更の版に結び付ける。"
+    "title": "AIチームの開発",
+    "generated": "担当ドメインの要件・設計・ストーリー・コード変更",
+    "evaluated": "各工程の受け入れ条件と、後続への引き継ぎ",
+    "observed": "要件ゲートから実装までの記録と、提供後の結果を追う。",
+    "contract": "一つのAIチームが、担当ドメインの開発を引き受ける。画面設計やQAは内部の仕事。"
   },
   {
-    "title": "評価システム",
-    "generated": "評価観点や入力契約の変更案",
-    "evaluated": "見逃し・誤検知・実行費用の変化",
-    "observed": "固定した評価セットで比較し、採用後の実績を追う。",
-    "contract": "成果物は評価の定義。判断の妥当性を確かめる条件を置く。"
+    "title": "AIチームの改善",
+    "generated": "評価観点・回復手順・モデル配置の変更案",
+    "evaluated": "要求との整合性、回復の結果、見逃し・費用の変化",
+    "observed": "チーム内の仕事と判断を、次の改善の入力と検証に使う。",
+    "contract": "仕事の進め方を改善するマネジメントにも、同じ生成・評価・フィードバックを使う。"
   },
   {
-    "title": "マネジメント",
-    "generated": "モデル配置や仕事の分割の変更案",
-    "evaluated": "品質を保ったうえでの再試行・費用・待ち時間の改善",
-    "observed": "限定した試行と観測期間で効果を確かめる。",
-    "contract": "成果物はAI組織への介入案。変更する権限と評価条件を外側で固定する。"
+    "title": "AI組織のマネジメント",
+    "generated": "異なるドメインのAIチームを結ぶ契約・配分・連携の案",
+    "evaluated": "各チームの責務と全体の要求、連携後の品質・待ち時間",
+    "observed": "チームをまたぐ受け渡しと結果を辿り、連携の改善へ使う。",
+    "contract": "AI組織はAIチームの集合体。基本単位を保ち、そのつながりもワークフロー化する。"
   }
 ];
 const scenarioCopy = {
@@ -155,14 +155,14 @@ function pipelineFigure(number) {
     </div>
     <div class="simulation-trace"><div><span class="trace-label">SCENARIO / 動作例</span><p id="scenario-description">${scenarioCopy.fail[0]}</p></div><button class="replay-button" id="replay-button" aria-label="選択したシナリオを再生">↻ <span>再生する</span></button></div>
     <div class="simulation-status" id="simulation-status" role="status" aria-live="polite">${scenarioCopy.fail[1]}</div>
-  `,'評価ゲートでは、テストとすべての必須評価をコードが確認します。AIが生成と評価を担い、遷移・差し戻し・構成の切り替えはハーネスが制御します。','dark-figure pipeline-figure');
+  `,'要件・設計・ストーリーを受け取った後の実装工程を示しています。評価ゲートでは、テストとすべての必須評価をコードが確認します。遷移・差し戻し・構成の切り替えはハーネスが制御します。','dark-figure pipeline-figure');
 }
 function selfSimilarityDetail(level) {
   const item=selfSimilarityLevels[level];
-  return `<p class="similarity-contract">${escapeHTML(item.contract)}</p><dl><div><dt>生成するもの</dt><dd>${escapeHTML(item.generated)}</dd></div><div><dt>評価すること</dt><dd>${escapeHTML(item.evaluated)}</dd></div><div><dt>結果の観測</dt><dd>${escapeHTML(item.observed)}</dd></div></dl>`;
+  return `<p class="similarity-contract">${escapeHTML(item.contract)}</p><dl><div><dt>生成するもの</dt><dd>${escapeHTML(item.generated)}</dd></div><div><dt>評価すること</dt><dd>${escapeHTML(item.evaluated)}</dd></div><div><dt>記録を次の入力へ</dt><dd>${escapeHTML(item.observed)}</dd></div></dl>`;
 }
 function selfSimilarityFigure(level=0, label='P1') {
-  return `<figure class="book-figure dark-figure similarity-figure"><header class="figure-header"><span>FIG. ${label}</span><span>SELF-SIMILARITY</span></header><h2>対象が変わっても、循環の形を保つ。</h2><p class="similarity-intro">各層を選ぶと、生成・評価する対象の違いを確認できます。</p><div class="similarity-levels" role="group" aria-label="自己相似な構造を持つ三つの層">${selfSimilarityLevels.map((item,index)=>`<button class="similarity-level" data-similarity-level="${index}" aria-pressed="${index===level}" aria-controls="similarity-detail"><span class="similarity-name"><small>0${index+1}</small><b>${escapeHTML(item.title)}</b></span><span class="similarity-cycle"><span class="similarity-ai">生成<small>AI</small></span><span class="similarity-arrow" aria-hidden="true">→</span><span class="similarity-ai">評価<small>AI</small></span><span class="similarity-arrow" aria-hidden="true">→</span><span class="similarity-control">適用・観測<small>CODE</small></span></span><span class="similarity-return">↶ 結果を、次の改善へ</span></button>`).join('')}</div><div class="similarity-detail" id="similarity-detail" aria-live="polite" aria-atomic="true">${selfSimilarityDetail(level)}</div><figcaption>本書における自己相似性の応用です。各層の外側のハーネスが契約・通過条件を検証し、採用・停止・記録を制御します。循環の形を保ちながら、評価条件と観測期間を対象に合わせて変えます。</figcaption></figure>`;
+  return `<figure class="book-figure dark-figure similarity-figure"><header class="figure-header"><span>FIG. ${label}</span><span>SELF-SIMILARITY</span></header><h2>AIチームからAI組織へ、同じ循環を広げる。</h2><p class="similarity-intro">各層を選ぶと、チーム内の仕事から、チームを結ぶ仕事への広がりを確認できます。</p><div class="similarity-levels" role="group" aria-label="自己相似な構造を持つ三つの層">${selfSimilarityLevels.map((item,index)=>`<button class="similarity-level" data-similarity-level="${index}" aria-pressed="${index===level}" aria-controls="similarity-detail"><span class="similarity-name"><small>0${index+1}</small><b>${escapeHTML(item.title)}</b></span><span class="similarity-cycle"><span class="similarity-ai">生成<small>AI</small></span><span class="similarity-arrow" aria-hidden="true">→</span><span class="similarity-ai">評価<small>AI</small></span><span class="similarity-arrow" aria-hidden="true">→</span><span class="similarity-control">適用・観測<small>CODE</small></span></span><span class="similarity-return">↶ 記録した結果を、次の生成へ</span></button>`).join('')}</div><div class="similarity-detail" id="similarity-detail" aria-live="polite" aria-atomic="true">${selfSimilarityDetail(level)}</div><figcaption>本書における自己相似性の応用です。各層で生成と評価をAIへ渡し、指摘を返す経路と採用・停止をコードが制御します。可観測性が残した記録を、一段上の改善にも使います。評価条件と観測期間は対象に合わせます。</figcaption></figure>`;
 }
 function bindSelfSimilarity() {
   document.querySelectorAll('[data-similarity-level]').forEach(button=>button.addEventListener('click',()=>{
