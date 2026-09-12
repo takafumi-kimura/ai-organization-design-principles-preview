@@ -38,8 +38,8 @@ const scenarioCopy = {
     "指摘を返し、修正して、同じ基準で再評価する流れを表示中"
   ],
   "input": [
-    "証拠や要件が足りなければ人間へ補完を依頼し、入力を検証してから再開します。",
-    "NEEDS_INPUT → 入力補完を待つ経路を表示中"
+    "例外として、自動では補えない証拠や業務判断が不足した場合です。人間へ補完を依頼し、入力を検証してから再開します。",
+    "NEEDS_INPUT → 例外の入力補完を待つ経路を表示中"
   ],
   "escalate": [
     "修正上限に達したら、検証済みの次のモデル構成へ切り替えます。すべての構成で上限に達したら停止し、人間のEMへ送ります。",
@@ -155,7 +155,7 @@ function pipelineFigure(number) {
     </div>
     <div class="simulation-trace"><div><span class="trace-label">SCENARIO / 動作例</span><p id="scenario-description">${scenarioCopy.fail[0]}</p></div><button class="replay-button" id="replay-button" aria-label="選択したシナリオを再生">↻ <span>再生する</span></button></div>
     <div class="simulation-status" id="simulation-status" role="status" aria-live="polite">${scenarioCopy.fail[1]}</div>
-  `,'要件・設計・ストーリーを受け取った後の実装工程を示しています。評価ゲートでは、テストとすべての必須評価をコードが確認します。遷移・差し戻し・構成の切り替えはハーネスが制御します。','dark-figure pipeline-figure');
+  `,'承認された要件から無人で進む開発のうち、実装の内部を示しています。FAILの修正と再評価にも開発者の取り次ぎはありません。ゲートと遷移はコードが制御し、人間への引き渡しは自動で完了できない場合の例外経路です。','dark-figure pipeline-figure');
 }
 function selfSimilarityDetail(level) {
   const item=selfSimilarityLevels[level];
