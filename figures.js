@@ -8,10 +8,10 @@ const figureNotes = {
 const selfSimilarityLevels = [
   {
     "title": "AIチームの開発",
-    "generated": "担当ドメインの要件・設計・ストーリー・コード変更",
+    "generated": "担当ドメインの要件・ストーリー・設計・コード変更",
     "evaluated": "各工程の受け入れ条件と、後続への引き継ぎ",
-    "observed": "要件ゲートから実装までの記録と、提供後の結果を追う。",
-    "contract": "一つのAIチームが、担当ドメインの開発を引き受ける。画面設計やQAは内部の仕事。"
+    "observed": "要件ゲートからPreview反映までと、ビジネス側の確認結果を追う。",
+    "contract": "ストーリー分解・設計・実装を無人で担う。ビジネス側は要件承認とプレビュー確認を行う。"
   },
   {
     "title": "AIチームの改善",
@@ -155,7 +155,7 @@ function pipelineFigure(number) {
     </div>
     <div class="simulation-trace"><div><span class="trace-label">SCENARIO / 動作例</span><p id="scenario-description">${scenarioCopy.fail[0]}</p></div><button class="replay-button" id="replay-button" aria-label="選択したシナリオを再生">↻ <span>再生する</span></button></div>
     <div class="simulation-status" id="simulation-status" role="status" aria-live="polite">${scenarioCopy.fail[1]}</div>
-  `,'承認された要件から無人で進む開発のうち、実装の内部を示しています。FAILの修正と再評価にも開発者の取り次ぎはありません。ゲートと遷移はコードが制御し、人間への引き渡しは自動で完了できない場合の例外経路です。','dark-figure pipeline-figure');
+  `,'承認された要件をストーリーへ分解し、設計を終えた後の実装工程を示しています。FAILの修正と再評価にも開発者の取り次ぎはありません。ゲートと遷移はコードが制御し、人間への引き渡しは自動で完了できない場合の例外経路です。','dark-figure pipeline-figure');
 }
 function selfSimilarityDetail(level) {
   const item=selfSimilarityLevels[level];
