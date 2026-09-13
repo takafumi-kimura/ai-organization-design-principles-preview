@@ -25,20 +25,13 @@ function renderCover() {
 function inline(text) {return escapeHTML(text).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1 ↗</a>');}
 const keyPassages = [
   "答えてほしい謎がある。\n人間とAI、どこに違いがあるのだろう。",
-  "私は、この転換を、XPの自己相似性をAIによる開発へ適用したものと捉えている。",
   "生成と評価をAIへ。フィードバックを結ぶ制御は、決定論的なワークフローへ。",
   "本書で設計する基本単位は、AIチームである。",
   "要件の承認後からPreview環境への反映までは、開発者のHITLを正常系に含めない。",
   "要求を伝え、提案を承認したら、次に触れるのは動くソフトウェアである。",
-  "本書のAIチームは、探索から得た知識を引き継ぎ、次の仕事でも品質を確かめ続ける仕組みである。",
   "少数精鋭という目標は、最初から変わっていない。",
   "XPの原理を、AIとハーネスからなるチーム全体の振る舞いにする。",
-  "自分が担当するAIチームの振る舞いと、その結果に責任を持つ。",
-  "AIチームの持続可能性は、指示を足せることだけでなく、根拠を持って減らせることにも支えられる。",
-  "評価観点と評価結果を、効果を機械的に検証できる構造化データとして管理する。",
-  "構造化は、AIを評価可能にするための設計である。",
-  "Observabilityは、AIチームの改善を駆動するための基盤である。",
-  "費用をかけて作るのは、継続的に成果を出し、その仕事の進め方も改善できるAIチームである。"
+  "AIチームの持続可能性は、指示を足せることだけでなく、根拠を持って減らせることにも支えられる。"
 ];
 function highlightPython(code) {
   const tokens = /#[^\n]*|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\bai\.(?:generate|evaluate)\b|\b(?:def|class|if|else|elif|for|in|not|and|or|is|return|raise|try|except|finally|with|as|from|import|lambda|continue|pass|True|False|None)\b|\b\d+(?:_\d+)*(?:\.\d+)?\b/g;
