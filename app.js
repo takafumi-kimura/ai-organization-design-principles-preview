@@ -23,30 +23,26 @@ function renderCover() {
   const prologue = chapters.find(chapter => chapter.id === 'prologue');
   const overview = [
     {
-      id: prologue.id,
       label: 'PROLOGUE / 序章',
       title: prologue.title,
       description: 'AIを使い込んだ先の課題から、目指す開発の姿と、本書を貫く生成・評価・改善の循環を見渡す。',
       chapters: [prologue],
-      range: '序章を読む',
     },
     ...parts.map(part => ({
-      id: chapters.find(chapter => chapter.number === part.from).id,
       label: `PART ${part.number}`,
       title: part.title,
       description: part.description,
       chapters: chapters.filter(chapter => chapter.number >= part.from && chapter.number <= part.to),
-      range: `CHAPTER ${String(part.from).padStart(2, '0')}—${String(part.to).padStart(2, '0')}`,
     })),
     ...[
-      { id: 'epilogue', label: 'EPILOGUE / 終章', description: '異なる業務ドメインのAIチームを結び、その集合体としてAI組織を設計する。', range: '終章を読む' },
-      { id: 'afterword', label: 'AFTERWORD / あとがき', description: 'AIチームを育て、束ねる仕事にも同じ循環を適用し、人間の役割を問い直す。', range: 'あとがきを読む' },
+      { id: 'epilogue', label: 'EPILOGUE / 終章', description: '異なる業務ドメインのAIチームを結び、その集合体としてAI組織を設計する。' },
+      { id: 'afterword', label: 'AFTERWORD / あとがき', description: 'AIチームを育て、束ねる仕事にも同じ循環を適用し、人間の役割を問い直す。' },
     ].map(entry => {
       const chapter = chapters.find(chapter => chapter.id === entry.id);
       return { ...entry, title: chapter.title, chapters: [chapter] };
     }),
   ];
-  return `<section class="cover"><div class="cover-eyebrow">試し読み｜序章・第1章・第2章を公開</div><div class="cover-grid"><div class="cover-copy"><h1>AIチームの<span class="title-second">設計原則</span></h1><p class="cover-subtitle">決定論的なワークフローで<br>マネジメントをコーディングする</p><p class="cover-tagline">生成と評価をAIへ。</p><p class="cover-intro">不確実性を制御し、<br>改善し続けるAIチームをつくる。</p><a href="#prologue" class="read-button">序章から読む <span class="arrow">↗</span></a><a href="#toc" class="cover-contents-link">全章の目次を見る ↗</a><div class="cover-meta"><span>4 PARTS</span><i></i><span>${parts.reduce((count,p)=>count+p.to-p.from+1,0)} CHAPTERS</span><i></i><span>TRIAL EDITION</span></div></div>${organizationArt()}</div><div class="cover-bottom"><p>AIに渡すのは、生成と評価だけ。</p><span>DETERMINISTIC HARNESS. AT EVERY AI CALL.</span></div></section><section class="part-overview" aria-label="本の構成"><div class="section-kicker">EXPLORE THE BOOK <span>本書の構成</span></div><ol class="part-cards" role="list">${overview.map(entry=>`<li><article class="part-card"><span>${entry.label}</span><div class="part-card-copy"><h2><a href="#${entry.id}">${escapeHTML(entry.title)}</a></h2><p>${escapeHTML(entry.description)}</p></div><footer><a class="part-start-link" href="#${entry.id}" aria-label="${escapeHTML(entry.title)}から読む"><span>${entry.range}</span><span aria-hidden="true">↗</span></a></footer>${entry.chapters?`<ol class="part-chapter-list" role="list">${entry.chapters.map(chapter=>`<li><a class="part-chapter-link" href="#${chapter.id}"><span class="part-chapter-number">${chapter.id==='prologue'?'序章':chapter.id==='epilogue'?'終章':chapter.id==='afterword'?'あとがき':`第${chapter.number}章`}</span><span class="part-chapter-title">${escapeHTML(chapter.title)}</span>${isPreview?`<small class="part-chapter-status ${canRead(chapter)?'is-readable':'is-unavailable'}">${canRead(chapter)?'試し読み':'本文未公開'}</small>`:''}<span class="part-chapter-arrow" aria-hidden="true">↗</span></a></li>`).join('')}</ol>`:''}</article></li>`).join('')}</ol></section>`;
+  return `<section class="cover"><div class="cover-eyebrow">試し読み｜序章・第1章・第2章を公開</div><div class="cover-grid"><div class="cover-copy"><h1>AIチームの<span class="title-second">設計原則</span></h1><p class="cover-subtitle">決定論的なワークフローで<br>マネジメントをコーディングする</p><p class="cover-tagline">生成と評価をAIへ。</p><p class="cover-intro">不確実性を制御し、<br>改善し続けるAIチームをつくる。</p><a href="#prologue" class="read-button">序章から読む <span class="arrow">↗</span></a><a href="#toc" class="cover-contents-link">全章の目次を見る ↗</a><div class="cover-meta"><span>4 PARTS</span><i></i><span>${parts.reduce((count,p)=>count+p.to-p.from+1,0)} CHAPTERS</span><i></i><span>TRIAL EDITION</span></div></div>${organizationArt()}</div><div class="cover-bottom"><p>AIに渡すのは、生成と評価だけ。</p><span>DETERMINISTIC HARNESS. AT EVERY AI CALL.</span></div></section><section class="part-overview" aria-label="本の構成"><div class="section-kicker">EXPLORE THE BOOK <span>本書の構成</span></div><ol class="part-cards" role="list">${overview.map(entry=>`<li><article class="part-card"><span>${entry.label}</span><div class="part-card-copy"><h2>${escapeHTML(entry.title)}</h2><p>${escapeHTML(entry.description)}</p></div>${entry.chapters?`<ol class="part-chapter-list" role="list">${entry.chapters.map(chapter=>`<li><a class="part-chapter-link" href="#${chapter.id}"><span class="part-chapter-number">${chapter.id==='prologue'?'序章':chapter.id==='epilogue'?'終章':chapter.id==='afterword'?'あとがき':`第${chapter.number}章`}</span><span class="part-chapter-title">${escapeHTML(chapter.title)}</span>${isPreview?`<small class="part-chapter-status ${canRead(chapter)?'is-readable':'is-unavailable'}">${canRead(chapter)?'試し読み':'本文未公開'}</small>`:''}<span class="part-chapter-arrow" aria-hidden="true">↗</span></a></li>`).join('')}</ol>`:''}</article></li>`).join('')}</ol></section>`;
 }
 function inline(text) {return escapeHTML(text).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1 ↗</a>');}
 const keyPassages = [
